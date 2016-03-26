@@ -1,4 +1,4 @@
 <?php
 require('inc.php');
 
-core::LoadModule('mysqli');
+core::initialize($config);

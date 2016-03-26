@@ -7,5 +7,7 @@ define('MPATH', PATH . 'model' . DS);
 define('CPATH', PATH . 'controller' . DS);
 
 include_once(PATH . 'core.php');
+include_once(PATH . 'config.php');
+
 
 core::$REQUESTS = $_GET + $_POST;

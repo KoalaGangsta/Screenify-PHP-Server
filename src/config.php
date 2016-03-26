@@ -2,7 +2,9 @@
 if (@!class_exists(core))
     die();
 
-$cfg = array(
+$config = array(
+    'debug' => true,
+
     'requirements' => array(
         'user' => false,
         'filetype' => array('jpg','jpeg')
@@ -13,7 +15,7 @@ $cfg = array(
     'models' => array(
         'mysqli' => array(
             'autoLoad' => true,
-            'autoRun' => false,
+            'autoRun' => true,
 
             'server' => 'localhost',
             'user' => 'root',

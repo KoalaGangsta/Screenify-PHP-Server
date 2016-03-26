@@ -1,32 +1,66 @@
 <?php
-class core
+class Core
 {
     public static $models = array();
     public static $controllers = array();
 
+    public static $config = array();
+
     public static $REQUESTS;
 
-    public static function LoadModule($moduleName, $config=array())
+    public static function initialize($config)
     {
-        if (file_exists(MPATH . $moduleName . '.php'))
-        {
-            if (class_exists($moduleName . 'Model'))
-            {
+        self::$config = $config;
 
+        include_once(MPATH . 'interface.php');
+
+        foreach(self::$config['models'] as $modelName => $modelConfig)
+        {
+            self::loadModel($modelName, $modelConfig);
+            self::consoleLog('Model "' . $modelName . '" loaded.');
+        }
+    }
+
+    public static function loadModel($modelName, $config=array())
+    {
+        $fileName = $modelName . '.php';
+        if (file_exists(MPATH . $fileName))
+        {
+            include_once(MPATH . $modelName . '.php');
+
+            $className = $modelName . 'Model';
+            if (class_exists($className))
+            {
+                if (!isset($config['autoLoad']))
+                    $config['autoLoad'] = true;
+
+                if (!isset($config['autoRun']))
+                    $config['autoLoad'] = false;
+
+                if($config['autoLoad'])
+                    self::$models[$modelName] = new $className($config);
+
+                if($config['autoRun'])
+                    self::$models[$modelName]->run();
             }
             else
             {
-                self::ErrorMessage('Class <u>' . $moduleName . 'Model</u> does not exist.');
+                self::errorMessage('Class <u>' . $className . '</u> does not exist.');
             }
         }
         else
         {
-            self::ErrorMessage('Model-file <u>' . $moduleName . '.php</u> does not exist.');
+            self::errorMessage('Model-file <u>' . $fileName . '</u> does not exist.');
         }
     }
 
-    public static function ErrorMessage($msg)
+    public static function errorMessage($msg)
     {
         die('<b>Error:</b> ' . $msg);
+    }
+
+    public static function consoleLog($msg)
+    {
+        echo '<script>console.log("'.addslashes($msg).'");</script>';
     }
 }
