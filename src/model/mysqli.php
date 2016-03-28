@@ -21,7 +21,7 @@ class mysqliModel implements IModel
 
     public  function rows($result)
     {
-        return $result->num_rows();
+        return $result->num_rows;
     }
 
     public function run()
@@ -32,5 +32,10 @@ class mysqliModel implements IModel
         if($this->db->connect_errno > 0){
             die('Unable to connect to database [' . $this->db->connect_error . ']');
         }
+    }
+
+    public function escape($str)
+    {
+        return $this->db->escape_string($str);
     }
 }

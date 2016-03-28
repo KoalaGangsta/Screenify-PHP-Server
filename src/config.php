@@ -23,11 +23,9 @@ $config = array(
             'db' => 'screenify'
         ),
 
-        'upload' => array(
+        'auth' => array(
             'autoLoad' => true,
-            'autoRun' => false,
-
-            'path' => PATH . 'p' . DS
+            'autoRun' => true
         )
     )
 );
