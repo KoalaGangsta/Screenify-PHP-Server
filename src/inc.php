@@ -10,4 +10,4 @@ include_once(PATH . 'core.php');
 include_once(PATH . 'config.php');
 
 
-core::$REQUESTS = $_GET + $_POST;
+core::$REQUESTS = $_GET + $_POST + $_FILES;

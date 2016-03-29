@@ -26,6 +26,15 @@ $config = array(
         'auth' => array(
             'autoLoad' => true,
             'autoRun' => true
+        ),
+
+        'upload' => array(
+            'autoLoad' => true,
+            'autoRun' => true,
+
+            'directory' => PATH . 'p' . DS,
+            'requiresAuth' => true,
+            'createUserSubDir' => false
         )
     )
 );
